@@ -21,6 +21,7 @@ New-LocalGroup -Name "$brand.db.casino"
 New-LocalGroup -Name "$brand.files.prod"
 New-LocalGroup -Name "$brand.files.qa"
 New-LocalGroup -Name "$brand.files.repo"
+New-LocalGroup -Name "$brand.files.webmaster"
 
 #########
 # USERS #
