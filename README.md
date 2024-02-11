@@ -8,6 +8,7 @@
 
 
 $brand = "baixo"
+$charSet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&@#$%'
 
 ##########
 # GROUPS #
@@ -39,7 +40,7 @@ New-LocalGroup -Name "$brand.files.repo"
 #############
 # GAME.PROD #
 #############
-$password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
+$password = -join (1..32 | ForEach-Object { $charSet.ToCharArray() | Get-Random })
 "$($brand).game.prod = $($password)" | Out-File -FilePath "C:\passwords.txt" -Append
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.game.prod" -Password $securePassword -Description "$brand Production Game"
@@ -54,7 +55,7 @@ net localgroup "Users" "$brand.game.prod" /delete
 #############
 # IIS.ADMIN #
 #############
-$password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
+$password = -join (1..32 | ForEach-Object { $charSet.ToCharArray() | Get-Random })
 "$($brand).iis.admin = $($password)" | Out-File -FilePath "C:\passwords.txt" -Append
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.admin" -Password $securePassword -Description "$brand Admin IIS"
@@ -75,9 +76,9 @@ net localgroup "Users" "$brand.iis.admin" /delete
 ############
 # IIS.GAME #
 ############
-$password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
-$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$password = -join (1..32 | ForEach-Object { $charSet.ToCharArray() | Get-Random })
 "$($brand).iis.game = $($password)" | Out-File -FilePath "C:\passwords.txt" -Append
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.game" -Password $securePassword -Description "$brand Game IIS"
 Set-LocalUser -Name "$brand.iis.game" -PasswordNeverExpires $true
 # GROUPS 
@@ -89,9 +90,9 @@ net localgroup "Users" "$brand.iis.game" /delete
 ##############
 # IIS.HYBRID #
 ##############
-$password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
-$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$password = -join (1..32 | ForEach-Object { $charSet.ToCharArray() | Get-Random })
 "$($brand).iis.hybrid = $($password)" | Out-File -FilePath "C:\passwords.txt" -Append
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.hybrid" -Password $securePassword -Description "$brand Hybrid IIS"
 Set-LocalUser -Name "$brand.iis.hybrid" -PasswordNeverExpires $true
 # GROUPS
@@ -109,9 +110,9 @@ net localgroup "Users" "$brand.iis.hybrid" /delete
 ############
 # IIS.MISC #
 ############
-$password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
-$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$password = -join (1..32 | ForEach-Object { $charSet.ToCharArray() | Get-Random })
 "$($brand).iis.misc = $($password)" | Out-File -FilePath "C:\passwords.txt" -Append
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.misc" -Password $securePassword -Description "$brand Misc IIS"
 Set-LocalUser -Name "$brand.iis.misc" -PasswordNeverExpires $true
 # GROUPS 
@@ -124,9 +125,9 @@ net localgroup "Users" "$brand.iis.misc" /delete
 #############
 # IIS.FORUM #
 #############
-$password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
-$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$password = -join (1..32 | ForEach-Object { $charSet.ToCharArray() | Get-Random })
 "$($brand).iis.forum = $($password)" | Out-File -FilePath "C:\passwords.txt" -Append
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.forum" -Password $securePassword -Description "$brand Forum IIS"
 Set-LocalUser -Name "$brand.iis.forum" -PasswordNeverExpires $true
 # GROUPS 
@@ -141,9 +142,9 @@ net localgroup "Users" "$brand.iis.forum" /delete
 ##############
 # IIS STATIC #
 ##############
-$password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
-$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$password = -join (1..32 | ForEach-Object { $charSet.ToCharArray() | Get-Random })
 "$($brand).iis.static = $($password)" | Out-File -FilePath "C:\passwords.txt" -Append
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.static" -Password $securePassword -Description "$brand Static IIS"
 Set-LocalUser -Name "$brand.iis.static" -PasswordNeverExpires $true
 # GROUPS 
@@ -153,9 +154,9 @@ net localgroup "Users" "$brand.iis.static" /delete
 ###########
 # Billing #
 ###########
-$password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
-$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+$password = -join (1..32 | ForEach-Object { $charSet.ToCharArray() | Get-Random })
 "$($brand).billing.service = $($password)" | Out-File -FilePath "C:\passwords.txt" -Append
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.billing.service" -Password $securePassword -Description "$brand Billing.service"
 Set-LocalUser -Name "$brand.billing.service" -PasswordNeverExpires $true
 # GROUPS 
