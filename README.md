@@ -4,6 +4,8 @@
 #################
 # Set The Brand #
 #################
+# This will generate users and store passwords temporarily to C:\passwords.txt. DELETE IT !!!!
+
 
 $brand = "baixo"
 
