@@ -127,7 +127,9 @@ Add-LocalGroupMember -Group "$brand.db.forum" -Member "$brand.iis.forum"
 Add-LocalGroupMember -Group "$brand.files.prod" -Member "$brand.iis.forum"
 # DELETE
 net localgroup "Users" "$brand.iis.forum" /delete
-
+```
+# Additional Ones
+```
 ##############
 # IIS STATIC #
 ##############
@@ -142,6 +144,13 @@ net localgroup "Users" "$brand.iis.static" /delete
 ###########
 # Billing #
 ###########
+$password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
+$securePassword = ConvertTo-SecureString $password -AsPlainText -Force
+New-LocalUser -Name "$brand.billing.service" -Password $securePassword -Description "$brand Billing.service"
+Set-LocalUser -Name "$brand.billing.service" -PasswordNeverExpires $true
+# GROUPS 
+# DELETE
+net localgroup "Users" "$brand.billing.service" /delete
 
 ################
 # Watermarking #
