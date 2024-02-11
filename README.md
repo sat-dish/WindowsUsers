@@ -11,6 +11,10 @@ $brand = "baixo"
 # GROUPS #
 ##########
 
+## System ##
+New-LocalGroup -Name "$brand.files.webmaster"
+New-LocalGroup -Name "$brand.db.admin"
+
 ## Database ##
 New-LocalGroup -Name "$brand.db.$brand"
 New-LocalGroup -Name "$brand.db.mediastore"
@@ -25,7 +29,6 @@ New-LocalGroup -Name "$brand.db.casino"
 New-LocalGroup -Name "$brand.files.prod"
 New-LocalGroup -Name "$brand.files.qa"
 New-LocalGroup -Name "$brand.files.repo"
-New-LocalGroup -Name "$brand.files.webmaster"
 
 #########
 # USERS #
@@ -37,6 +40,7 @@ New-LocalGroup -Name "$brand.files.webmaster"
 $password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.game.prod" -Password $securePassword -Description "$brand Production Game"
+Set-LocalUser -Name "$brand.game.prod" -PasswordNeverExpires $true
 # GROUPS
 Add-LocalGroupMember -Group "$brand.db.$brand" -Member "$brand.game.prod"
 Add-LocalGroupMember -Group "$brand.db.uvresources" -Member "$brand.game.prod"
@@ -50,6 +54,7 @@ net localgroup "Users" "$brand.game.prod" /delete
 $password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.admin" -Password $securePassword -Description "$brand Admin IIS"
+Set-LocalUser -Name "$brand.iis.admin" -PasswordNeverExpires $true
 # GROUPS
 Add-LocalGroupMember -Group "$brand.db.$brand" -Member "$brand.iis.admin"
 Add-LocalGroupMember -Group "$brand.db.mediastore" -Member "$brand.iis.admin"
@@ -69,6 +74,7 @@ net localgroup "Users" "$brand.iis.admin" /delete
 $password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.game" -Password $securePassword -Description "$brand Game IIS"
+Set-LocalUser -Name "$brand.iis.game" -PasswordNeverExpires $true
 # GROUPS 
 Add-LocalGroupMember -Group "$brand.db.uvresources" -Member "$brand.iis.game"
 Add-LocalGroupMember -Group "$brand.files.prod" -Member "$brand.iis.game"
@@ -81,6 +87,7 @@ net localgroup "Users" "$brand.iis.game" /delete
 $password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.hybrid" -Password $securePassword -Description "$brand Hybrid IIS"
+Set-LocalUser -Name "$brand.iis.hybrid" -PasswordNeverExpires $true
 # GROUPS
 Add-LocalGroupMember -Group "$brand.db.$brand" -Member "$brand.iis.hybrid"
 Add-LocalGroupMember -Group "$brand.db.mediastore" -Member "$brand.iis.hybrid"
@@ -99,6 +106,7 @@ net localgroup "Users" "$brand.iis.hybrid" /delete
 $password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.misc" -Password $securePassword -Description "$brand Misc IIS"
+Set-LocalUser -Name "$brand.iis.misc" -PasswordNeverExpires $true
 # GROUPS 
 Add-LocalGroupMember -Group "$brand.db.$brand" -Member "$brand.iis.misc"
 Add-LocalGroupMember -Group "$brand.db.mediastore" -Member "$brand.iis.misc"
@@ -112,6 +120,7 @@ net localgroup "Users" "$brand.iis.misc" /delete
 $password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.forum" -Password $securePassword -Description "$brand Forum IIS"
+Set-LocalUser -Name "$brand.iis.forum" -PasswordNeverExpires $true
 # GROUPS 
 Add-LocalGroupMember -Group "$brand.db.$brand" -Member "$brand.iis.forum"
 Add-LocalGroupMember -Group "$brand.db.forum" -Member "$brand.iis.forum"
@@ -125,7 +134,16 @@ net localgroup "Users" "$brand.iis.forum" /delete
 $password = -join ('ABCDabcd&@#$%1234'.ToCharArray() | Get-Random -Count 24)
 $securePassword = ConvertTo-SecureString $password -AsPlainText -Force
 New-LocalUser -Name "$brand.iis.static" -Password $securePassword -Description "$brand Static IIS"
+Set-LocalUser -Name "$brand.iis.static" -PasswordNeverExpires $true
 # GROUPS 
 # DELETE
-net localgroup "Users" "$brand.iis.forum" /delete
+net localgroup "Users" "$brand.iis.static" /delete
+
+###########
+# Billing #
+###########
+
+################
+# Watermarking #
+################
 ```
